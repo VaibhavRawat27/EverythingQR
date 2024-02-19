@@ -1,16 +1,22 @@
 package com.vaibhavrawat.everythingqr
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
+import com.google.zxing.client.android.BuildConfig
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.vaibhavrawat.everythingqr.databinding.ActivityGenerateQrcodeForTextBinding
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
 import java.util.EnumMap
 
 class GenerateQRCodeForText : AppCompatActivity() {
@@ -23,6 +29,10 @@ class GenerateQRCodeForText : AppCompatActivity() {
 
         binding.buttonGenerateQR.setOnClickListener {
             generateQRCode()
+        }
+
+        binding.buttonShare.setOnClickListener {
+            shareQRCode()
         }
     }
 
@@ -90,5 +100,42 @@ class GenerateQRCodeForText : AppCompatActivity() {
             Toast.makeText(this, "Error generating QR code", Toast.LENGTH_SHORT).show()
         }
         return null
+    }
+
+    private fun shareQRCode() {
+        val drawable = binding.imageView.drawable
+        if (drawable is BitmapDrawable) {
+            val bitmap = drawable.bitmap
+            try {
+                // Save bitmap to cache directory
+                val cachePath = File(applicationContext.cacheDir, "images")
+                cachePath.mkdirs() // Create the cache directory if it doesn't exist
+                val file = File(cachePath, "qr_code.png")
+                val stream = FileOutputStream(file)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                stream.close()
+
+                // Log file path
+                println("File path: ${file.absolutePath}")
+
+                // Share bitmap
+                val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                // Log URI
+                println("URI: $uri")
+
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "image/*"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                startActivity(Intent.createChooser(intent, "Share QR Code via"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this, "Failed to share QR code", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "QR code image not available", Toast.LENGTH_SHORT).show()
+        }
     }
 }

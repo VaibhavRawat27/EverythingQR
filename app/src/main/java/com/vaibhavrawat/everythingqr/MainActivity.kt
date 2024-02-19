@@ -1,9 +1,18 @@
 package com.vaibhavrawat.everythingqr
 
 import android.Manifest
+import android.R
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -23,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        val statusBarColor = ContextCompat.getColor(this, R.color.status_bar_color)
+//        window.statusBarColor = statusBarColor
+
+        animateText("Everything QR")
         // Request camera permission
         requestPermissions()
     }
@@ -63,8 +76,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToQRDashboard() {
-        val intent = Intent(this, QRDashboard::class.java)
-        startActivity(intent)
-        finish()
+        Handler().postDelayed({
+            val intent = Intent(this, QRDashboard::class.java)
+            startActivity(intent)
+            finish()
+        }, 2000) // 2000 milliseconds = 2 seconds
     }
+
+
+    private fun animateText(text: String) {
+        val spannableString = SpannableString(text)
+        val animator = ValueAnimator.ofInt(0, text.length)
+        animator.addUpdateListener { valueAnimator ->
+            val value = valueAnimator.animatedValue as Int
+            spannableString.setSpan(
+                TextAppearanceSpan(null, 0, 150, ColorStateList.valueOf(Color.BLUE), null),
+                0, value, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            binding.textView.text = spannableString
+        }
+        animator.duration = 2000
+        animator.start()
+    }
+
+
 }

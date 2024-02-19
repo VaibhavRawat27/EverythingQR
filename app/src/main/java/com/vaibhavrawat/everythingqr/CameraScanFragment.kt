@@ -1,12 +1,18 @@
 package com.vaibhavrawat.everythingqr
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
@@ -60,15 +66,35 @@ class CameraScanFragment : Fragment() {
                 }
             }
 
+            @SuppressLint("ServiceCast")
             private fun showQRContentPopup(content: String) {
                 // Create a dialog or alert dialog to show the content
                 val dialogBuilder = AlertDialog.Builder(requireContext())
                 dialogBuilder.setMessage(content)
+                dialogBuilder.setCancelable(false)
                 dialogBuilder.setPositiveButton("OK") { dialog, _ ->
                     dialog.dismiss()
                     isScanningEnabled = true
                 }
+//                dialogBuilder.setNegativeButton("Select All") { dialog, _ ->
+//                    dialog.dismiss()
+//                    isScanningEnabled = true
+//                }
+                dialogBuilder.setNeutralButton("Copy All") { _, _ ->
+                    // Copy all the text to clipboard
+                    val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("QR Content", content)
+                    clipboard.setPrimaryClip(clip)
+                    Toast.makeText(requireContext(), "Content copied to clipboard", Toast.LENGTH_SHORT).show()
+                }
+
+
                 val dialog = dialogBuilder.create()
+
+                dialog.setOnShowListener {
+                    dialog.findViewById<TextView>(android.R.id.message)?.setTextIsSelectable(true)
+                }
+
                 dialog.show()
             }
 

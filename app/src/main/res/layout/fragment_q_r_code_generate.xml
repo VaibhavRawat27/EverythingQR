@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:src="@drawable/ic_logo"
+        android:id="@+id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30sp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRLink"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code for Link"
         android:textColor="@color/white"
         app:cornerRadius="0sp"
         android:backgroundTint="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30sp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRText"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code for Text"
         android:textColor="@color/white"
@@ -38,7 +54,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRCustom"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code with Custom Data"
         android:textColor="@color/white"
@@ -53,7 +69,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRImage"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code for Image"
         android:textColor="@color/white"
@@ -68,7 +84,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRAudio"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code for Audio"
         android:textColor="@color/white"
@@ -83,7 +99,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRContactShare"
-        android:layout_width="wrap_content"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:text="Generate QR Code for Conatact Share"
         android:textColor="@color/white"
@@ -96,4 +112,38 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="20sp"
+        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRContactShare">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAbout"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:textColor="@color/white"
+        app:cornerRadius="0sp"
+        android:backgroundTint="@color/black"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonPolicy"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:text="Policy"
+        android:layout_marginStart="50sp"
+        android:textColor="@color/white"
+        app:cornerRadius="0sp"
+        android:backgroundTint="@color/black"
+        />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

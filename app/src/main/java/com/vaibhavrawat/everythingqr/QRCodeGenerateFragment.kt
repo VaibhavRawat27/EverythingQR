@@ -1,5 +1,6 @@
 package com.vaibhavrawat.everythingqr
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -33,6 +34,18 @@ class QRCodeGenerateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.buttonAbout.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.about_layout, null)
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(dialogView)
+            dialog.show()
+        }
+        binding.buttonPolicy.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.policy_layout, null)
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(dialogView)
+            dialog.show()
+        }
         binding.buttonGenerateQRLink.setOnClickListener {
             val intent = Intent(requireContext(), QRCodeGeneratorActivity::class.java)
             startActivity(intent)
@@ -46,16 +59,20 @@ class QRCodeGenerateFragment : Fragment() {
             startActivity(intent)
         }
         binding.buttonGenerateQRAudio.setOnClickListener {
-            val intent = Intent(requireContext(), GenerateQRCodeForAudio::class.java)
-            startActivity(intent)
+//            val intent = Intent(requireContext(), GenerateQRCodeForAudio::class.java)
+//            startActivity(intent)
+            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
         }
         binding.buttonGenerateQRCustom.setOnClickListener {
             val intent = Intent(requireContext(), GenerateQRCodeForCustom::class.java)
             startActivity(intent)
+
         }
         binding.buttonGenerateQRImage.setOnClickListener {
-            val intent = Intent(requireContext(), GenerateQRCodeForImage::class.java)
-            startActivity(intent)
+//            val intent = Intent(requireContext(), GenerateQRCodeForImage::class.java)
+//            startActivity(intent)
+            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
+
         }
     }
 }
