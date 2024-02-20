@@ -67,35 +67,35 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonGenerateQRImage"
-        android:layout_width="350sp"
-        android:layout_height="wrap_content"
-        android:text="Generate QR Code for Image"
-        android:textColor="@color/white"
-        app:cornerRadius="0sp"
-        android:backgroundTint="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRCustom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/buttonGenerateQRImage"-->
+<!--        android:layout_width="350sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Generate QR Code for Phone number"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:cornerRadius="0sp"-->
+<!--        android:backgroundTint="@color/black"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRCustom"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"/>-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonGenerateQRAudio"
-        android:layout_width="350sp"
-        android:layout_height="wrap_content"
-        android:text="Generate QR Code for Audio"
-        android:textColor="@color/white"
-        app:cornerRadius="0sp"
-        android:backgroundTint="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/buttonGenerateQRAudio"-->
+<!--        android:layout_width="350sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Generate QR Code for Audio"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:cornerRadius="0sp"-->
+<!--        android:backgroundTint="@color/black"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRImage"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"/>-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGenerateQRContactShare"
@@ -105,7 +105,7 @@
         android:textColor="@color/white"
         app:cornerRadius="0sp"
         android:backgroundTint="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRAudio"
+        app:layout_constraintTop_toBottomOf="@id/buttonGenerateQRCustom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"

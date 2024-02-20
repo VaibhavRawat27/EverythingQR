@@ -6,11 +6,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Website.URL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,6 +24,7 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import com.vaibhavrawat.everythingqr.databinding.FragmentCameraScanBinding
+import java.net.URL
 
 class CameraScanFragment : Fragment() {
     private lateinit var barcodeView: DecoratedBarcodeView
@@ -54,9 +58,11 @@ class CameraScanFragment : Fragment() {
                     // Check if the data is a valid URL
                     if (result.text.startsWith("http://") || result.text.startsWith("https://")) {
                         // Open the URL in a web browser
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result.text))
-                        startActivity(intent)
+//                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result.text))
+//                        startActivity(intent)
 
+                        showURLConfirmationDialog(result.text)
+                        isScanningEnabled = false
 
                     } else {
                         // Show the content of the QR code in a pop-up
@@ -66,8 +72,32 @@ class CameraScanFragment : Fragment() {
                 }
             }
 
+            private fun showURLConfirmationDialog(url: String) {
+                val dialogBuilder = AlertDialog.Builder(requireContext())
+                dialogBuilder.setMessage("This QR code is redirecting to:\n$url\nDo you want to continue?")
+                dialogBuilder.setCancelable(false)
+                dialogBuilder.setPositiveButton("Open") { dialog, _ ->
+                    dialog.dismiss()
+                    // Open the URL in a web browser
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                }
+                dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                    isScanningEnabled = true
+                }
+                val dialog = dialogBuilder.create()
+                dialog.show()
+            }
+
             @SuppressLint("ServiceCast")
             private fun showQRContentPopup(content: String) {
+
+//                if (content.endsWith(".png") || content.endsWith(".jpg") || content.endsWith(".jpeg") || content.endsWith(".gif")) {
+//                    // Show the image in a dialog
+//                    showImageDialog(content)
+//                    return
+//                }
                 // Create a dialog or alert dialog to show the content
                 val dialogBuilder = AlertDialog.Builder(requireContext())
                 dialogBuilder.setMessage(content)
@@ -97,6 +127,24 @@ class CameraScanFragment : Fragment() {
 
                 dialog.show()
             }
+
+//            private fun showImageDialog(imageUrl: String) {
+//                // Load the image from the URL and display it in a dialog
+//                val dialogBuilder = AlertDialog.Builder(requireContext())
+//                val dialogView = layoutInflater.inflate(R.layout.dialog_image, null)
+//                val imageView = dialogView.findViewById<ImageView>(R.id.imageView)
+//                dialogBuilder.setView(dialogView)
+//                dialogBuilder.setCancelable(true)
+//
+//                // Load image using Glide, Picasso, or any other image loading library
+//                // Here's an example using BitmapFactory to load the image
+//                val bitmap = BitmapFactory.decodeStream(URL(imageUrl).openConnection().getInputStream())
+//                imageView.setImageBitmap(bitmap)
+//
+//                val dialog = dialogBuilder.create()
+//                dialog.show()
+//            }
+
 
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
         })

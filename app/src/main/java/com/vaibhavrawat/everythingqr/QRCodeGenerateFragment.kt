@@ -58,21 +58,21 @@ class QRCodeGenerateFragment : Fragment() {
             val intent = Intent(requireContext(), GenerateQRCodeForContactShare::class.java)
             startActivity(intent)
         }
-        binding.buttonGenerateQRAudio.setOnClickListener {
-//            val intent = Intent(requireContext(), GenerateQRCodeForAudio::class.java)
-//            startActivity(intent)
-            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
-        }
+//        binding.buttonGenerateQRAudio.setOnClickListener {
+////            val intent = Intent(requireContext(), GenerateQRCodeForAudio::class.java)
+////            startActivity(intent)
+//            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
+//        }
         binding.buttonGenerateQRCustom.setOnClickListener {
             val intent = Intent(requireContext(), GenerateQRCodeForCustom::class.java)
             startActivity(intent)
 
         }
-        binding.buttonGenerateQRImage.setOnClickListener {
+//        binding.buttonGenerateQRImage.setOnClickListener {
 //            val intent = Intent(requireContext(), GenerateQRCodeForImage::class.java)
 //            startActivity(intent)
-            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
-
-        }
+//            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
+//
+//        }
     }
 }
