@@ -14,7 +14,6 @@ import com.google.zxing.client.android.BuildConfig
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.vaibhavrawat.everythingqr.databinding.ActivityGenerateQrcodeForTextBinding
-import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.util.EnumMap
@@ -44,15 +43,8 @@ class GenerateQRCodeForText : AppCompatActivity() {
         val websiteUrl = binding.editTextWebsite.text.toString()
         val imageUrl = binding.editTextImageUrl.text.toString()
 
-        // Generate profile data
-        val profileData = createProfileData(
-            name,
-            phoneNumber,
-            email,
-            bio,
-            websiteUrl,
-            imageUrl
-        )
+        // Create profile data
+        val profileData = createProfileData(name, phoneNumber, email, bio, websiteUrl, imageUrl)
 
         // Generate QR Code bitmap
         val qrCodeBitmap = generateQRCode(profileData, 500, 500)
@@ -69,14 +61,14 @@ class GenerateQRCodeForText : AppCompatActivity() {
         websiteUrl: String,
         imageUrl: String
     ): String {
-        val profileJson = JSONObject()
-        profileJson.put("name", name)
-        profileJson.put("phone_number", phoneNumber)
-        profileJson.put("email", email)
-        profileJson.put("bio", bio)
-        profileJson.put("website_url", websiteUrl)
-        profileJson.put("image_url", imageUrl)
-        return profileJson.toString()
+        val profileData = StringBuilder()
+        profileData.append("Name: $name\n")
+        profileData.append("Phone Number: $phoneNumber\n")
+        profileData.append("Email: $email\n")
+        profileData.append("Bio: $bio\n")
+        profileData.append("Website URL: $websiteUrl\n")
+        profileData.append("Image URL: $imageUrl")
+        return profileData.toString()
     }
 
     private fun generateQRCode(content: String, width: Int, height: Int): Bitmap? {
@@ -115,14 +107,8 @@ class GenerateQRCodeForText : AppCompatActivity() {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 stream.close()
 
-                // Log file path
-                println("File path: ${file.absolutePath}")
-
                 // Share bitmap
                 val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
-
-                // Log URI
-                println("URI: $uri")
 
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "image/*"

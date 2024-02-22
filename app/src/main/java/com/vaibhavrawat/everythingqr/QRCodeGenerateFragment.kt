@@ -2,25 +2,22 @@ package com.vaibhavrawat.everythingqr
 
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.EncodeHintType
-import com.google.zxing.qrcode.QRCodeWriter
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.vaibhavrawat.everythingqr.databinding.FragmentQRCodeGenerateBinding
-import org.json.JSONObject
-import java.util.EnumMap
 
 class QRCodeGenerateFragment : Fragment() {
+
     private var _binding: FragmentQRCodeGenerateBinding? = null
     private val binding get() = _binding!!
+//
+//    private lateinit var adsManager: AdsManager
+//
+//    private lateinit var showInterstitialAd: ShowInterstitialAd
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,45 +31,65 @@ class QRCodeGenerateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonAbout.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.about_layout, null)
-            val dialog = Dialog(requireContext())
-            dialog.setContentView(dialogView)
-            dialog.show()
-        }
-        binding.buttonPolicy.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.policy_layout, null)
-            val dialog = Dialog(requireContext())
-            dialog.setContentView(dialogView)
-            dialog.show()
-        }
-        binding.buttonGenerateQRLink.setOnClickListener {
-            val intent = Intent(requireContext(), QRCodeGeneratorActivity::class.java)
-            startActivity(intent)
-        }
-        binding.buttonGenerateQRText.setOnClickListener {
-            val intent = Intent(requireContext(), GenerateQRCodeForText::class.java)
-            startActivity(intent)
-        }
-        binding.buttonGenerateQRContactShare.setOnClickListener {
-            val intent = Intent(requireContext(), GenerateQRCodeForContactShare::class.java)
-            startActivity(intent)
-        }
-//        binding.buttonGenerateQRAudio.setOnClickListener {
-////            val intent = Intent(requireContext(), GenerateQRCodeForAudio::class.java)
-////            startActivity(intent)
-//            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
-//        }
-        binding.buttonGenerateQRCustom.setOnClickListener {
-            val intent = Intent(requireContext(), GenerateQRCodeForCustom::class.java)
-            startActivity(intent)
+//        showInterstitialAd = ShowInterstitialAd(requireContext())
+//        adsManager = AdsManager(requireContext())
 
-        }
-//        binding.buttonGenerateQRImage.setOnClickListener {
-//            val intent = Intent(requireContext(), GenerateQRCodeForImage::class.java)
-//            startActivity(intent)
-//            Toast.makeText(requireContext(), "This feature is currently at development phase.", Toast.LENGTH_SHORT).show()
-//
+//        binding.buttonAbout.setOnClickListener {
+//            adsManager.showInterstitialAd(this)
+//            showAboutDialog()
 //        }
+
+        binding.buttonAbout.setOnClickListener {
+//            showInterstitialAd.displayInterstitialAd()
+            showAboutDialog()
+        }
+
+        binding.buttonPolicy.setOnClickListener {
+            showPolicyDialog()
+//            if (adsManager.isBannerLoaded) {
+//                showPolicyDialog()
+//            } else {
+//                Toast.makeText(requireContext(), "Banner ad is not loaded yet!", Toast.LENGTH_SHORT).show()
+//            }
+        }
+
+        // Load banner ad
+//        adsManager.loadBannerAd(this, view.findViewById(R.id.bannerAdContainer))
+
+        // Other button click listeners...
+        binding.buttonGenerateQRLink.setOnClickListener {
+            startActivity(Intent(requireContext(), QRCodeGeneratorActivity::class.java))
+        }
+
+        binding.buttonGenerateQRText.setOnClickListener {
+            startActivity(Intent(requireContext(), GenerateQRCodeForText::class.java))
+        }
+
+        binding.buttonGenerateQRContactShare.setOnClickListener {
+            startActivity(Intent(requireContext(), GenerateQRCodeForContactShare::class.java))
+        }
+
+        binding.buttonGenerateQRCustom.setOnClickListener {
+            startActivity(Intent(requireContext(), GenerateQRCodeForCustom::class.java))
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun showAboutDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.about_layout, null)
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(dialogView)
+        dialog.show()
+    }
+
+    private fun showPolicyDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.policy_layout, null)
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(dialogView)
+        dialog.show()
     }
 }
